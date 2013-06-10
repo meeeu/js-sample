@@ -1,0 +1,36 @@
+<body>
+  <style>
+    #results li.pass { color: green; }
+    #results li.fail { color: red; }
+  </style>
+  <input id="first"/>
+  <input id="second"/>
+  <ul id="results"></ul>
+
+  <script type="text/javascript">
+	function assert(value, desc) {
+	  var li = document.createElement("li");
+	  li.className = value ? "pass" : "fail";
+	  li.appendChild(document.createTextNode(desc));
+	  document.getElementById("results").appendChild(li);
+	}
+    var elems = {
+      length: 0,
+
+      add: function(elem){
+      	Array.prototype.push.call(this, elem);
+      },
+
+      gather: function(id){
+      	this.add(document.getElementById(id));
+      }
+    };
+
+    elems.gather("first");
+    assert(elems.length == 1 && elems[0].nodeType,
+    	   "Verifiy that we have element in our stash");
+    elems.gather("second");
+    assert(elems.length == 2 && elems[1].nodeType,
+    	   "Verify the other insertion");
+  </script>
+</body>
